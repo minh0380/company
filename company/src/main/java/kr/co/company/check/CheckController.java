@@ -6,17 +6,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.company.common.dto.ResultDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.co.company.common.ResultDto;
 
+@Tag(name = "헬스 체크", description = "서버 헬스 체크")
 @RequestMapping("check")
 @RestController
 public class CheckController {
 	
 	@GetMapping("health")
-	public ResponseEntity<ResultDto<String>> health() {
-		ResultDto<String> result = new ResultDto<>();
-		result.setStatus(HttpStatus.OK);
-		result.setResultData("Health Check Complete!");
+	public ResponseEntity<ResultDto<Object>> health() {
+		ResultDto<Object> result = ResultDto.builder()
+				.status(HttpStatus.OK)
+				.resultData("Health Check Complete!")
+				.build();
 		
 		return ResponseEntity.ok(result);
 	}

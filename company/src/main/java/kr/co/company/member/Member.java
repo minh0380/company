@@ -8,6 +8,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +34,7 @@ public class Member {
 			description = "비밀번호",
 			example = "mhchopassword"
 	)
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	@Parameter(
 			name = "name",
@@ -67,6 +70,7 @@ public class Member {
 	@Column(columnDefinition = "date default current_timestamp")
 	private Date regDate;
 	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public List<SimpleGrantedAuthority> getAuthority() {
 		List<SimpleGrantedAuthority> auth = new ArrayList<>();
 		auth.add(new SimpleGrantedAuthority(role));

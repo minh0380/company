@@ -41,6 +41,10 @@ public class MemberService implements UserDetailsService {
 		return memberRepository.existsByUserIdAndIsLeave(userId, false);
 	}
 	
+	public Member findByUserIdAndIsLeave(String userId) {
+		return memberRepository.findByUserIdAndIsLeave(userId, false);
+	}
+	
 	@Transactional
 	public void saveMember(Member member) {
 		member.setPassword(passwordEncoder.encode(member.getPassword()));

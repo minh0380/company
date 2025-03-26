@@ -1,4 +1,4 @@
-package kr.co.company.common;
+package kr.co.company.common.dto;
 
 import org.springframework.http.HttpStatus;
 

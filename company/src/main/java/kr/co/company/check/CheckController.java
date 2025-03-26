@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kr.co.company.common.ResultDto;
+import kr.co.company.common.dto.ResultDto;
 
-@Tag(name = "헬스 체크", description = "서버 헬스 체크")
+@Tag(name = "1. 헬스 체크", description = "서버 헬스 체크")
 @RequestMapping("check")
 @RestController
 public class CheckController {

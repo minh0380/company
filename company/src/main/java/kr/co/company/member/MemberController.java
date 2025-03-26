@@ -16,12 +16,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import kr.co.company.common.ResultDto;
+import kr.co.company.common.dto.ResultDto;
 import kr.co.company.jwt.JwtTokenDto;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Tag(name = "회원", description = "회원 관리 관련 API")
+@Tag(name = "2. 회원", description = "회원 관리 관련 API")
 @RequestMapping("/api/member")
 @RestController
 public class MemberController {

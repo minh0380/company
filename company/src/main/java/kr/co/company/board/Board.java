@@ -61,7 +61,7 @@ public class Board {
 	private Date regDate;
 	@Parameter(hidden = true)
 	@Column(columnDefinition = "number default 0")
-	private boolean isDel;
+	private Boolean isDel;
 	@Parameter(hidden = true)
 	@ManyToOne // 작성자 한 명에 게시물은 여러 개
 	private Member member;

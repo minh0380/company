@@ -55,5 +55,10 @@ public class FileUtil {
 		
 		multipartFile.transferTo(file);
 	}
+	
+	public void removeFile(FileEntity fileEntity) {
+		File file = new File(fileEntity.getSavePath() + fileEntity.getSaveFileName());
+		file.delete();
+	}
 
 }

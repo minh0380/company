@@ -82,5 +82,17 @@ public class BoardController {
 		
 		return ResponseEntity.ok(result);
 	}
+	
+	@GetMapping("remove")
+	@Operation(summary = "게시판 글 삭제", description = "게시판 글 삭제 API")
+	public ResponseEntity<ResultDto<Object>> remove(@Parameter(name = "bdId", description = "아이디") @RequestParam("bdId") String bdId) {
+		boardService.removeBoard(bdId);
+		ResultDto<Object> result = ResultDto.builder()
+				.status(HttpStatus.OK)
+				.message("게시글이 삭제되었습니다.")
+				.build();
+		
+		return ResponseEntity.ok(result);
+	}
 
 }

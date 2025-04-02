@@ -17,7 +17,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import kr.co.company.common.file.File;
+import kr.co.company.common.file.FileEntity;
 import kr.co.company.member.Member;
 import lombok.Data;
 
@@ -30,13 +30,13 @@ public class Board {
 	@Parameter(hidden = true)
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	private String bId;
+	private String bdId;
 	@Parameter(
-			name = "bType",
+			name = "bdType",
 			description = "게시판 종류",
 			example = "notice"
 	)
-	private String bType;
+	private String bdType;
 	@Parameter(
 			name = "title",
 			description = "제목",
@@ -65,7 +65,8 @@ public class Board {
 	@Parameter(hidden = true)
 	@ManyToOne // 작성자 한 명에 게시물은 여러 개
 	private Member member;
+	@Parameter(hidden = true)
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<File> fileList;
+	private List<FileEntity> fileList;
 
 }

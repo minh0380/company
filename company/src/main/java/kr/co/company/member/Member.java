@@ -65,7 +65,7 @@ public class Member {
 	private String role;
 	@Parameter(hidden = true)
 	@Column(columnDefinition = "number default 0")
-	private boolean isLeave;
+	private Boolean isLeave;
 	@Parameter(hidden = true)
 	@Column(columnDefinition = "date default current_timestamp")
 	private Date regDate;

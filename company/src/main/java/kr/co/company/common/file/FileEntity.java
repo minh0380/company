@@ -19,12 +19,12 @@ import lombok.Data;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-public class File {
+public class FileEntity {
 	
 	@Parameter(hidden = true)
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	private String fId;
+	private String flId;
 	@Parameter(
 			name = "orgFileName",
 			description = "파일 원본명",

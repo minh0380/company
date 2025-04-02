@@ -14,9 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.company.jwt.JwtTokenDto;
 import kr.co.company.jwt.JwtTokenProvider;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class MemberService implements UserDetailsService {
 	

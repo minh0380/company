@@ -89,7 +89,7 @@ public class MemberController {
 	@GetMapping("is-user")
 	@Operation(summary = "유저 정보 확인", description = "유저 정보 확인 API")
 	public ResponseEntity<ResultDto<Object>> isUser(@Parameter(name = "userId", description = "아이디", example = "mhcho") @RequestParam("userId") String userId) {
-		Member member = memberService.findByUserIdAndIsLeave(userId);
+		Member member = memberService.findByUserIdAndIsLeave(userId, false);
 		ResultDto<Object> result;
 		
 		if(member != null) {

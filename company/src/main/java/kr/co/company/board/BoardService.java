@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,6 +32,10 @@ public class BoardService {
 		boardRepository.save(board);
 	}
 	
+	public Board findBoard(String bdId) {
+		return boardRepository.findById(bdId).orElseThrow();
+	}
+	
 	public Map<String, Object> findBoardList(PageRequest pageRequest) {
 		Map<String, Object> boardMap = new HashMap<>();
 		Page<Board> boards = boardRepository.findByIsDel(false, pageRequest);
@@ -44,13 +47,15 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void removeBoard(String bdId) {
-		List<FileEntity> fileEntities = boardRepository.findById(bdId)
-				.orElseThrow().getFileList();
+	public Board removeBoard(String bdId) {
+		Board board = boardRepository.findById(bdId).get();
+		List<FileEntity> fileEntities = board.getFileList();
 		for (FileEntity fileEntity : fileEntities) {
 			fileUtil.removeFile(fileEntity);
 		}
 		boardRepository.deleteById(bdId);
+		
+		return board;
 	}
 
 }

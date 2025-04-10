@@ -2,6 +2,7 @@ package kr.co.company.board;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
@@ -45,7 +46,7 @@ public class BoardController {
 	public ResponseEntity<ResultDto<Object>> write(@ParameterObject Board board
 			, @RequestPart(name = "files", required = false) List<MultipartFile> files
 			, @AuthenticationPrincipal UserDetails user) {
-		Member member = memberService.findByUserIdAndIsLeave(user.getUsername());
+		Member member = memberService.findByUserIdAndIsLeave(user.getUsername(), false);
 		board.setMember(member);
 		ResultDto<Object> result;
 		
@@ -66,7 +67,7 @@ public class BoardController {
 					.resultData(e.getMessage())
 					.build();
 			
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+			return ResponseEntity.internalServerError().body(result);
 		}
 	}
 	
@@ -83,16 +84,49 @@ public class BoardController {
 		return ResponseEntity.ok(result);
 	}
 	
+	@GetMapping("detail")
+	@Operation(summary = "게시판 글 조회", description = "게시판 글 조회 API")
+	public ResponseEntity<ResultDto<Object>> detail(@Parameter(name = "bdId", description = "아이디") @RequestParam("bdId") String bdId) {
+		ResultDto<Object> result;
+		try {
+			Board board = boardService.findBoard(bdId);
+			result = ResultDto.builder()
+					.status(HttpStatus.OK)
+					.resultData(board)
+					.build();
+			
+			return ResponseEntity.ok(result);
+		} catch (NoSuchElementException e) {
+			result = ResultDto.builder()
+					.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.message("게시글이 존재하지 않습니다.")
+					.build();
+			
+			return ResponseEntity.internalServerError().body(result);
+		}
+	}
+	
 	@GetMapping("remove")
 	@Operation(summary = "게시판 글 삭제", description = "게시판 글 삭제 API")
 	public ResponseEntity<ResultDto<Object>> remove(@Parameter(name = "bdId", description = "아이디") @RequestParam("bdId") String bdId) {
-		boardService.removeBoard(bdId);
-		ResultDto<Object> result = ResultDto.builder()
-				.status(HttpStatus.OK)
-				.message("게시글이 삭제되었습니다.")
-				.build();
-		
-		return ResponseEntity.ok(result);
+		ResultDto<Object> result;
+		try {
+			Board board = boardService.removeBoard(bdId);
+			result = ResultDto.builder()
+					.status(HttpStatus.OK)
+					.message("게시글이 삭제되었습니다.")
+					.resultData(board)
+					.build();
+			
+			return ResponseEntity.ok(result);
+		} catch (NoSuchElementException e) {
+			result = ResultDto.builder()
+					.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.message("게시글이 존재하지 않습니다.")
+					.build();
+			
+			return ResponseEntity.internalServerError().body(result);
+		}
 	}
 
 }

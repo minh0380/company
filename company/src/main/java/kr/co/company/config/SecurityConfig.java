@@ -40,7 +40,8 @@ public class SecurityConfig {
                         		, "/check/**"
                         		, "/api/member/id-check"
                         		, "/api/member/join"
-                        		, "/api/member/sign-in")
+                        		, "/api/member/sign-in"
+                        		, "/jwt/**")
                         .permitAll()
                         // ROLE_USER 권한이 있어야 요청할 수 있음 -> prefix로 'ROLE_'이 있어야 하는 점 유의
                         .requestMatchers("/api/**").hasRole("USER")

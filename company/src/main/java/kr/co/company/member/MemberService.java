@@ -38,8 +38,8 @@ public class MemberService implements UserDetailsService {
 		return memberRepository.existsByUserIdAndIsLeave(userId, false);
 	}
 	
-	public Member findByUserIdAndIsLeave(String userId) {
-		return memberRepository.findByUserIdAndIsLeave(userId, false);
+	public Member findByUserIdAndIsLeave(String userId, boolean isLeave) {
+		return memberRepository.findByUserIdAndIsLeave(userId, isLeave);
 	}
 	
 	@Transactional
